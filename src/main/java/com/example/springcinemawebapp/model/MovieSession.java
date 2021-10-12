@@ -1,6 +1,7 @@
 package com.example.springcinemawebapp.model;
 
 import java.time.LocalTime;
+import java.util.List;
 
 public class MovieSession {
 
@@ -8,7 +9,7 @@ public class MovieSession {
     private LocalTime start;
     private LocalTime end;
 
+    private Movie movie;
 
-
-    Movie movie;
+    private List<Ticket> tickets;
 }

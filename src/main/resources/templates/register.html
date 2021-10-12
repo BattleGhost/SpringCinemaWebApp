@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+</head>
+<body>
+<form th:action="@{/register}" th:method="POST" th:object="${user}">
+    <div class="container">
+        <h1>Register</h1>
+        <p>Please fill in this form to create an account.</p>
+        <hr>
+
+        <label for="firstName"><b>First name</b></label>
+        <input type="text" placeholder="Enter first name" th:field="*{firstName}" name="firstName" id="firstName" required>
+        <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
+
+        <label for="lastName"><b>First name</b></label>
+        <input type="text" placeholder="Enter last name" th:field="*{lastName}" name="lastName" id="lastName" required>
+        <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
+
+        <label for="email"><b>Email</b></label>
+        <input type="text" placeholder="Enter Email" th:field="*{email}" name="email" id="email" required>
+        <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+
+        <label for="password"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" th:field="*{password}" name="password" id="password" required>
+        <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+
+        <label for="password-repeat"><b>Repeat Password</b></label>
+        <input type="password" placeholder="Repeat Password" name="password-repeat" id="password-repeat" required>
+        <hr>
+
+        <button type="submit" class="register-btn">Register</button>
+    </div>
+
+    <div class="container signin">
+        <p>Already have an account? <a href="/auth/login">Sign in</a>.</p>
+    </div>
+</form>
+</body>
+</html>

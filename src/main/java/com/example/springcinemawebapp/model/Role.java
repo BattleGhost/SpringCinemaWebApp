@@ -1,5 +1,6 @@
 package com.example.springcinemawebapp.model;
 
-public class Schedule {
-
+public enum Role {
+    ADMIN,
+    USER
 }
