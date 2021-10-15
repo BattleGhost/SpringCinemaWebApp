@@ -28,18 +28,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+        String[] staticResources  =  {
+                "/css/**",
+                "/images/**",
+                "/scripts/**",
+        };
+
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/",  "/main").permitAll()
+                .antMatchers("/",  "/home", "/main").permitAll()
+                .antMatchers(staticResources).permitAll()
                 .antMatchers("/auth/**", "/register").anonymous()
-                .antMatchers("/api/**").hasRole(Role.ADMIN.name())
+                .antMatchers("/api/**", "/admin/**").hasAuthority(Role.ADMIN.name())
                 .anyRequest()
                 .authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/auth/login")
-                .defaultSuccessUrl("/main");
+                .defaultSuccessUrl("/home");
     }
 
     @Override

@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
+
+    <link th:replace="fragments/default-page :: bootstrap">
+
     <title>Main page</title>
 </head>
 <body>
-  <h1>Main page</h1>
+
+    <div th:replace="fragments/default-page :: header"></div>
+    <h1>Main page</h1>
+    <div th:replace="fragments/default-page :: footer"></div>
 </body>
 </html>

@@ -2,6 +2,7 @@ package com.example.springcinemawebapp.config.security;
 
 import com.example.springcinemawebapp.model.User;
 import lombok.Data;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,6 +11,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+@Log4j2
 @Data
 public class SecurityUser implements UserDetails {
     private final String username;
@@ -52,6 +54,7 @@ public class SecurityUser implements UserDetails {
     }
 
     public static UserDetails fromUser(User user) {
+        log.info(user);
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(),
                 user.getPassword(),
