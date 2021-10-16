@@ -1,22 +1,30 @@
 package com.example.springcinemawebapp.model;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import java.time.LocalTime;
+import javax.persistence.*;
+import java.time.Duration;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Entity
+@Table(name = "movies")
+@Builder
 public class Movie {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
     private String title;
-    private LocalTime length;
+
+    @Column(nullable = false)
+    private Duration length;
+
+    @Column
     private String description;
 
 }
