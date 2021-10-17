@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <link th:replace="fragments/default-page :: bootstrap">
+    <link th:replace="fragments/default-page :: fontawesome">
+    <title>Movies</title>
+</head>
+<body>
+<div th:replace="fragments/default-page :: header"></div>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col"><a th:text="#{ui.movie.id}" th:href="@{'~/movies/page/' + ${currentPage} + '?sortBy=id&sortDir=' + ${sortDir.equalsIgnoreCase('asc') ? 'desc' : 'asc'}}">Id</a></th>
+                    <th scope="col"><a th:text="#{ui.movie.title}" th:href="@{'~/movies/page/' + ${currentPage} + '?sortBy=title&sortDir=' + ${sortDir.equalsIgnoreCase('asc') ? 'desc' : 'asc'}}">Title</a></th>
+                    <th scope="col"><a th:text="#{ui.movie.duration}" th:href="@{'~/movies/page/' + ${currentPage} + '?sortBy=duration&sortDir=' + ${sortDir.equalsIgnoreCase('asc') ? 'desc' : 'asc'}}">Duration</a></th>
+                    <th scope="col"><a th:text="#{ui.movie.description}" th:href="@{'~/movies/page/' + ${currentPage} + '?sortBy=description&sortDir=' + ${sortDir.equalsIgnoreCase('asc') ? 'desc' : 'asc'}}">Description</a></th>
+                    <th scope="col" th:text="#{ui.movie.actions}">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="movie: ${movies}">
+                    <th scope="row" th:text="${movie.id}">id</th>
+                    <td th:text="${movie.title}">title</td>
+                    <td th:text="${movie.duration.toMinutes()} + ' ' + #{ui.unit.minute}">duration</td>
+                    <td th:text="${movie.description}">description</td>
+                    <td>
+
+                        <form th:id="${'delete_form' + movie.id}" th:action="@{'~/movies/' + ${movie.id}}" th:method="delete"></form>
+                        <a th:href="@{'~/movies/' + ${movie.id}}" class="btn btn-success"><i class="fas fa-edit"></i></a>
+                        <button th:onclick="|submitDeleteForm(${movie.id})|" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+
+
+                        <!--<button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>-->
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <nav class="row d-flex justify-content-center flex-nowrap mt-5" aria-label="pagination" th:if="${totalPages > 1}">
+        <ul class="pagination">
+            <li class="page-item">
+                <a th:class="${currentPage > 1} ? 'page-link' : 'btn disabled page-link'"
+                   th:href="@{'~/movies/page/' + ${currentPage - 1} + '?sortBy=' + ${sortBy} + '&sortDir=' + ${sortDir}}"
+                   th:text="#{ui.page.previous}">Previous</a>
+            </li>
+            <li th:each="i: ${#numbers.sequence(1, totalPages)}" class="page-item">
+                <a th:class="${currentPage != i} ? 'page-link' : 'btn disabled page-link'"
+                   th:href="@{'~/movies/page/' + ${i} + '?sortBy=' + ${sortBy} + '&sortDir=' + ${sortDir}}"
+                   th:text="${i}">1</a>
+            </li>
+            <li class="page-item">
+                <a th:class="${currentPage < totalPages} ? 'page-link' : 'btn disabled page-link'"
+                   th:href="@{'~/movies/page/' + ${currentPage + 1} + '?sortBy=' + ${sortBy} + '&sortDir=' + ${sortDir}}"
+                   th:text="#{ui.page.next}">Next</a>
+            </li>
+        </ul>
+    </nav>
+
+</div>
+
+<script>
+
+    function submitDeleteForm(id) {
+        document.getElementById("delete_form" + id).submit();
+    }
+
+</script>
+
+<div th:replace="fragments/default-page :: footer"></div>
+</body>
+</html>

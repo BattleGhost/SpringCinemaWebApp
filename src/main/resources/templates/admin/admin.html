@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+</head>
+<body>
+<!--<p id='movies'> </p>
+<script>
+    async function postData(url = '', data = {}) {
+        const response = await fetch(url, {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            redirect: 'follow',
+            referrerPolicy: 'no-referrer',
+            body: JSON.stringify(data)
+
+        });
+        return await response.json();
+    }
+    postData('api/v1/movie', { title: "Title1", description : "Desc1", duration : "PT99H"})
+        .then((data) => {
+            console.log(data);
+        });
+   fetch(`api/v1/movie`)
+        .then((res) => res.json())
+        .then((x) => {
+            for (let i = 0; i < x.length; i += 1) {
+                if (x[i]['title']) {
+                    document.getElementById('movies').innerHTML += '<br/><b>' + x[i]['title'] + '</b> : ' + x[i]['description'];
+                }
+            }
+        });
+</script>-->
+<!--<form th:action="@{~/api/v1/movie}" th:method="POST">
+    <div>
+        <label for="say">What greeting do you want to say?</label>
+        <input name="say" id="say" value="Hi">
+    </div>
+    <div>
+        <label for="to">Who do you want to say it to?</label>
+        <input name="to" id="to" value="Mom">
+    </div>
+    <div>
+        <input type="submit" value="Send my greetings"/>
+    </div>
+</form>-->
+</body>
+</html>

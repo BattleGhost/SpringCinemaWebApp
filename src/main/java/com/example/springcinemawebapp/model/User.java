@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -35,6 +36,6 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "buyer")
-    private List<Ticket> tickets;
+    @OneToMany(mappedBy = "buyer", fetch = FetchType.EAGER)
+    private List<Ticket> tickets = new ArrayList<>();
 }

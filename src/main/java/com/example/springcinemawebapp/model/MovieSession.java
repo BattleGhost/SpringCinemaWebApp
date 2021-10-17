@@ -39,6 +39,6 @@ public class MovieSession {
     private List<Ticket> tickets;
 
     public LocalTime getEnd() {
-        return start.plus(movie.getLength());
+        return start.plus(movie.getDuration());
     }
 }

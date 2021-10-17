@@ -22,7 +22,7 @@ public class Movie {
     private String title;
 
     @Column(nullable = false)
-    private Duration length;
+    private Duration duration;
 
     @Column
     private String description;
