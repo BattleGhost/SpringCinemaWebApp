@@ -3,6 +3,7 @@ package com.example.springcinemawebapp.service;
 import com.example.springcinemawebapp.model.Movie;
 import com.example.springcinemawebapp.repository.MovieRepository;
 import lombok.AllArgsConstructor;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -34,5 +36,9 @@ public class MovieService {
 
     public void removeById(long id) {
         repository.deleteById(id);
+    }
+
+    public Movie getById(long id) {
+        return repository.getById(id);
     }
 }

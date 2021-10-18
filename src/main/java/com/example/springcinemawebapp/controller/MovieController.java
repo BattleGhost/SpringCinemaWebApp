@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -92,6 +93,41 @@ public class MovieController {
             log.error(e.getMessage());
             return "redirect:/movies";
         }
-        return "redirect:/movies?success";
+        return "redirect:/movies?delete-success";
+    }
+
+    @GetMapping("/{id}")
+    public String updateMovieForm(@PathVariable(value = "id") long id, Model model) {
+        Movie movie;
+        try {
+            movie = movieService.getById(id);
+            log.info(movie);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return "redirect:/movies";
+        }
+
+        model.addAttribute("movie", movie);
+        return "admin/update-movie";
+    }
+
+    @PostMapping("/{id}")
+    public String updateMovie(@PathVariable(value = "id") long id,
+                              @ModelAttribute("movie") @Valid MovieDTO movie,
+                              BindingResult bindingResult) {
+        log.info(movie);
+        log.info(bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "admin/update-movie";
+        }
+        Movie movieToUpdate = Movie.builder()
+                .id(id)
+                .title(movie.getTitle())
+                .duration(movie.getDuration())
+                .description(movie.getDescription())
+                .build();
+        movieService.addMovie(movieToUpdate);
+
+        return "redirect:?update-success";
     }
 }

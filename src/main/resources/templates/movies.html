@@ -10,6 +10,8 @@
 <div th:replace="fragments/default-page :: header"></div>
 
 <div class="container mt-4">
+    <div class="alert alert-success" role="alert" th:if="${param.keySet().contains('update-success')}" th:text="#{message.movie.update.success}"></div>
+    <div class="alert alert-success" role="alert" th:if="${param.keySet().contains('delete-success')}" th:text="#{message.movie.delete.success}"></div>
     <div class="row">
         <div class="col-12">
             <table class="table table-bordered">
