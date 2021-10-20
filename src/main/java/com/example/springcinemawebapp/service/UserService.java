@@ -8,6 +8,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.example.springcinemawebapp.properties.TechnicalTextConstants.EMAIL_IS_ALREADY_TAKEN_MSG;
+
 @Service
 @AllArgsConstructor
 public class UserService {
@@ -19,9 +21,8 @@ public class UserService {
     @Transactional
     public void signUp(User user) {
 
-        // TODO: 08.10.2021 MESSAGE
         userRepository.findByEmail(user.getEmail()).ifPresent(u -> {
-            throw new EmailIsAlreadyTakenException("Email is already taken");
+            throw new EmailIsAlreadyTakenException(EMAIL_IS_ALREADY_TAKEN_MSG);
         });
 
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));

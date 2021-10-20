@@ -1,5 +1,6 @@
 package com.example.springcinemawebapp.service;
 
+import com.example.springcinemawebapp.dto.MovieDTO;
 import com.example.springcinemawebapp.model.Movie;
 import com.example.springcinemawebapp.repository.MovieRepository;
 import lombok.AllArgsConstructor;
@@ -11,7 +12,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -19,12 +19,30 @@ public class MovieService {
 
     private final MovieRepository repository;
 
-    public void addMovie(Movie movieToAdd) {
+    public void addMovie(MovieDTO movie) {
+        Movie movieToAdd = Movie.builder()
+                .title(movie.getTitle())
+                .duration(movie.getDuration())
+                .description(movie.getDescription())
+                .build();
         repository.save(movieToAdd);
+    }
+
+    public void updateMovie(long id, MovieDTO movie) {
+        Movie movieToUpdate = Movie.builder()
+                .id(id)
+                .title(movie.getTitle())
+                .duration(movie.getDuration())
+                .description(movie.getDescription())
+                .build();
+        repository.save(movieToUpdate);
     }
 
     public List<Movie> getAll() {
         return repository.findAll();
+    }
+    public List<Movie> getAll(String filter) {
+        return repository.findAllByTitleContains(filter);
     }
 
     public Page<Movie> getPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {

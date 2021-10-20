@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <link th:replace="fragments/default-page :: bootstrap">
+    <link th:replace="fragments/default-page :: fontawesome">
+    <title>Add session</title>
+</head>
+<body class="vsc-initialized">
+<div th:replace="fragments/default-page :: header"></div>
+
+<div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins mt-4 mb-4">
+    <div class="wrapper wrapper--w680">
+        <section class="vh-100">
+            <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+                <div class="container h-100">
+                    <div class="row d-flex justify-content-center align-items-center h-100">
+                        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                            <div class="card" style="border-radius: 15px;">
+                                <div class="card-body p-5">
+                                    <h2 class="text-uppercase text-center mb-5" th:text="#{message.session.add}">Add session</h2>
+                                    <div class="alert alert-success alert-dismissible" role="alert" th:if="${param.keySet().contains('success')}">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                        <div th:text="#{message.session.add.success}"></div>
+                                    </div>
+                                    <form id="form" name="form" th:action="@{/sessions/add}" th:method="POST" th:object="${movieSession}" >
+
+                                        <div class="form-outline mb-4">
+                                            <input type="date" max='2021-13-13' class="form-control form-control-lg" th:field="*{date}" name="date" id="date" required>
+                                            <label class="form-label" for="date" th:text="#{message.require.session.date}"></label>
+                                            <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('date')}" th:errors="*{date}"></div>
+                                        </div>
+
+                                        <div class="form-outline mb-4">
+                                            <input type="time" class="form-control form-control-lg" th:field="*{start}" name="start" id="start" required>
+                                            <label class="form-label" for="start" th:text="#{message.require.session.start}"></label>
+                                            <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('start')}" th:errors="*{start}"></div>
+                                        </div>
+
+                                        <div class="form-outline mb-4">
+                                            <div class="input-group rounded">
+                                                <input id="movie_filter" type="search" class="form-control rounded" th:placeholder="#{message.placeholder.movie.search}"
+                                                       aria-label="Search" aria-describedby="search-addon" required/>
+                                                <button id="search-button" type="button" class="btn btn-primary" onclick="findFilms(document.getElementById('movie_filter').value)" >
+                                                    <i class="fas fa-search"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-outline mb-4">
+                                            <div class="alert alert-warning alert-dismissible" role="alert" id="emptyFilterAlert">
+                                                <button type="button" class="close" onclick="alert.hide();" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                                <div th:text="#{message.error.filter}"></div>
+                                            </div>
+
+                                            <div class="form-group" id="movie_select_group">
+                                                <label for="movie_select" th:text="#{message.movie.select}"></label>
+                                                <select multiple class="form-control" id="movie_select" th:field="*{movieId}" required>
+                                                </select>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="d-flex justify-content-center">
+                                            <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body register-btn" th:text="#{message.session.add.confirm}"></button>
+                                        </div>
+
+                                        <p class="text-center text-muted mt-5 mb-0"><a th:href="@{/sessions}" class="fw-bold text-body"><u th:text="#{message.back}">Back</u></a></p>
+
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<div th:replace="fragments/default-page :: footer"></div>
+
+<script>
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+</script>
+
+<script th:src="@{~/scripts/add-session-js.js}"></script>
+</body>
+</html>

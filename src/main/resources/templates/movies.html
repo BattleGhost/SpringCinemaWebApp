@@ -10,8 +10,15 @@
 <div th:replace="fragments/default-page :: header"></div>
 
 <div class="container mt-4">
-    <div class="alert alert-success" role="alert" th:if="${param.keySet().contains('update-success')}" th:text="#{message.movie.update.success}"></div>
-    <div class="alert alert-success" role="alert" th:if="${param.keySet().contains('delete-success')}" th:text="#{message.movie.delete.success}"></div>
+    <div class="alert alert-success alert-dismissible" role="alert" th:if="${param.keySet().contains('update-success')}">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <div th:text="#{message.movie.update.success}"></div>
+    </div>
+    <div class="alert alert-success alert-dismissible" role="alert" th:if="${param.keySet().contains('delete-success')}">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <div th:text="#{message.movie.delete.success}"></div>
+    </div>
+    <a th:href="@{~/movies/add}" class="btn btn-primary mb-2" th:text="#{message.movie.add}"></a>
     <div class="row">
         <div class="col-12">
             <table class="table table-bordered">
