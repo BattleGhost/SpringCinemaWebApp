@@ -64,4 +64,8 @@ public class MovieSessionService {
     public List<MovieSession> getByDateAfter(LocalDate date) {
         return repository.getAllByDateAfter(date);
     }
+
+    public List<MovieSession> getByDateBetween(LocalDate date1, LocalDate date2) {
+        return repository.getAllByDateBetween(date1, date2);
+    }
 }

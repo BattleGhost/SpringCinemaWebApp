@@ -3,7 +3,7 @@ package com.example.springcinemawebapp.dto;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.Future;
+import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -16,7 +16,7 @@ import java.time.LocalTime;
 public class MovieSessionDTO {
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    @Future(message = "{message.wrong.date.past}")
+    @FutureOrPresent(message = "{message.wrong.date.past}")
     private LocalDate date;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)

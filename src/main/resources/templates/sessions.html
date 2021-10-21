@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <link th:replace="fragments/default-page :: bootstrap">
+    <link th:replace="fragments/default-page :: fontawesome">
+    <link rel="stylesheet" th:href="@{~/css/sessions.css}">
+    <title>Sessions</title>
+</head>
+<body>
+<div th:replace="fragments/default-page :: header"></div>
+
+<div class="schedule-block mt-5">
+    <div class="schedule content-block">
+        <div class="container">
+            <h2 data-aos="zoom-in-up" class="aos-init aos-animate" th:text="#{ui.schedule}">Schedule</h2>
+
+            <div class="timetable">
+
+                <!-- Schedule Top Navigation -->
+                <nav class="nav nav-tabs" id="days">
+                    <a id="day1" href="#tab1" class="nav-link active">Mon</a>
+                    <a id="day2" href="#tab2" class="nav-link">Tue</a>
+                    <a id="day3" href="#tab3" class="nav-link">Wed</a>
+                    <a id="day4" href="#tab4" class="nav-link">Thu</a>
+                    <a id="day5" href="#tab5" class="nav-link">Fri</a>
+                    <a id="day6" href="#tab6" class="nav-link">Sat</a>
+                    <a id="day7" href="#tab7" class="nav-link">Sun</a>
+                </nav>
+
+                <th:block th:each="i : ${#numbers.sequence(1, 7)}">
+                    <div class="tab-content" th:id="'tab' + ${i}" th:style="${i == 1 ? '' : 'display: none;'}">
+                        <div class="tab-pane show active">
+                            <div class="row">
+
+                                <th:block th:each="sess : ${i == 1 ? day1Schedule :
+                                 (i == 2 ? day2Schedule : (i == 3 ? day3Schedule :
+                                  ((i == 4 ? day4Schedule : ((i == 5 ? day5Schedule :
+                                   ((i == 6 ? day6Schedule : day7Schedule))))))))}">
+
+                                    <div class="col-md-6">
+                                        <div class="timetable-item">
+
+                                            <div class="timetable-item-main">
+                                                <div class="timetable-item-time" th:text="${sess.start} + ' - ' + ${sess.end}"></div>
+                                                <div class="timetable-item-name"  th:text="${sess.movie.title}"></div>
+                                                <a href="#" class="btn btn-primary btn-book" th:text="#{ui.tickets}"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </th:block>
+
+                            </div>
+                        </div>
+                    </div>
+                </th:block>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments/default-page :: footer"></div>
+
+<script th:inline="javascript">
+    let today = new Date();
+    let array = [];
+    array.push(/*[[#{ui.sunday}]]*/ '', /*[[#{ui.monday}]]*/ '', /*[[#{ui.tuesday}]]*/ '', /*[[#{ui.wednesday}]]*/ '',
+        /*[[#{ui.thursday}]]*/ '', /*[[#{ui.friday}]]*/ '', /*[[#{ui.saturday}]]*/ '');
+
+    for (let i = 0; i < 7; i++) {
+        let date = new Date();
+        date.setDate(today.getDate() + i);
+        let day_cell = $('#day' + (i+1));
+        let day = array[date.getDay()];
+        day_cell.html(day + '<br/>' + date.getDate() + '.' + date.getMonth());
+    }
+</script>
+<script th:src="@{~/scripts/sessions.js}"></script>
+</body>
+</html>

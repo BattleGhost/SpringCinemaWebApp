@@ -1,0 +1,141 @@
+.schedule-block .classes-details ul.timetable {
+    margin: 0 0 22px;
+    padding: 0;
+}
+.schedule-block .classes-details ul.timetable li {
+    list-style: none;
+    font-size: 15px;
+    color: #7f7f7f;
+}
+schedule-block .timetable {
+    max-width: 900px;
+    margin: 0 auto;
+}
+.schedule-block .timetable-item {
+    border: 1px solid #d8e3eb;
+    padding: 15px;
+    margin-top: 20px;
+    position: relative;
+    display: block;
+}
+@media (min-width: 768px) {
+    .schedule-block .timetable-item {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+    }
+}
+.schedule-block .timetable-item-img {
+    overflow: hidden;
+    height: 100px;
+    width: 100px;
+    display: none;
+}
+.schedule-block .timetable-item-img img {
+    height: 100%;
+}
+@media (min-width: 768px) {
+    .schedule-block .timetable-item-img {
+        display: block;
+    }
+}
+.schedule-block .timetable-item-main {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    position: relative;
+    margin-top: 12px;
+}
+@media (min-width: 768px) {
+    .schedule-block .timetable-item-main {
+        margin-top: 0;
+        padding-left: 15px;
+    }
+}
+.schedule-block .timetable-item-time {
+    font-weight: 500;
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+.schedule-block .timetable-item-name {
+    font-size: 14px;
+    margin-bottom: 19px;
+}
+.schedule-block .btn-book {
+    padding: 6px 30px;
+    width: 100%;
+}
+.schedule-block .timetable-item-like {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    font-size: 20px;
+    cursor: pointer;
+}
+.schedule-block .timetable-item-like .fa-heart-o {
+    display: block;
+    color: #b7b7b7;
+}
+.schedule-block .timetable-item-like .fa-heart {
+    display: none;
+    color: #f15465;
+}
+.schedule-block .timetable-item-like:hover .fa-heart {
+    display: block;
+}
+.schedule-block .timetable-item-like:hover .fa-heart-o {
+    display: none;
+}
+.schedule-block .timetable-item-like-count {
+    font-size: 12px;
+    text-align: center;
+    padding-top: 5px;
+    color: #7f7f7f;
+}
+.schedule-block .timetable-item-book {
+    width: 200px;
+}
+.schedule-block .timetable-item-book .btn {
+    width: 100%;
+}
+.schedule-block .schedule .nav-tabs {
+    border-bottom: 2px solid #104455;
+}
+.schedule-block .schedule .nav-link {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    font-size: 12px;
+    text-align: center;
+    text-transform: uppercase;
+    color: #3d3d3d;
+    font-weight: 500;
+    -webkit-transition: none;
+    -o-transition: none;
+    transition: none;
+    border-radius: 2px 2px 0 0;
+    padding-left: 0;
+    padding-right: 0;
+    cursor: pointer;
+}
+@media (min-width: 768px) {
+    .schedule-block .schedule .nav-link {
+        font-size: 16px;
+    }
+}
+.schedule-block .schedule .nav-link.active {
+    background: #104455;
+    border-color: #104455;
+    color: #fff;
+}
+.schedule-block .schedule .nav-link.active:focus {
+    border-color: #104455;
+}
+.schedule-block .schedule .nav-link:hover:not(.active) {
+    background: #46c1be;
+    border-color: #46c1be;
+    color: #fff;
+}
+.schedule-block .schedule .tab-pane {
+    padding-top: 10px;
+}
