@@ -13,6 +13,7 @@ import java.time.LocalTime;
 @Getter
 @Setter
 @ToString
+@Builder
 public class MovieSessionDTO {
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)

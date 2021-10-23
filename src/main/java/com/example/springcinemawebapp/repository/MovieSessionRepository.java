@@ -10,4 +10,5 @@ public interface MovieSessionRepository extends JpaRepository<MovieSession, Long
     List<MovieSession> getAllByDate(LocalDate date);
     List<MovieSession> getAllByDateAfter(LocalDate date);
     List<MovieSession> getAllByDateBetween(LocalDate date1, LocalDate date2);
+    List<MovieSession> getAllByDateAndIdIsNot(LocalDate date, long id);
 }

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <link th:replace="fragments/default-page :: bootstrap">
+    <link th:replace="fragments/default-page :: fontawesome">
+    <title>Sessions</title>
+</head>
+<body>
+<div th:replace="fragments/default-page :: header"></div>
+
+<div class="container mt-4">
+    <div class="alert alert-success alert-dismissible" role="alert" th:if="${param.keySet().contains('update-success')}">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <div th:text="#{message.session.update.success}"></div>
+    </div>
+    <div class="alert alert-success alert-dismissible" role="alert" th:if="${param.keySet().contains('delete-success')}">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <div th:text="#{message.session.delete.success}"></div>
+    </div>
+    <a th:href="@{~/sessions/add}" class="btn btn-primary mb-2" th:text="#{message.session.add}"></a>
+    <a th:href="@{~/sessions?userMode=true}" class="btn btn-primary mb-2" th:text="#{ui.mode.user}"></a>
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col"><a th:text="#{ui.session.id}" th:href="@{'~/sessions/page/' + ${currentPage} + '?sortBy=id&sortDir=' + ${sortDir.equalsIgnoreCase('asc') ? 'desc' : 'asc'}}">Id</a></th>
+                    <th scope="col"><a th:text="#{ui.session.date}" th:href="@{'~/sessions/page/' + ${currentPage} + '?sortBy=date&sortDir=' + ${sortDir.equalsIgnoreCase('asc') ? 'desc' : 'asc'}}">Date</a></th>
+                    <th scope="col"><a th:text="#{ui.session.time.start}" th:href="@{'~/sessions/page/' + ${currentPage} + '?sortBy=start&sortDir=' + ${sortDir.equalsIgnoreCase('asc') ? 'desc' : 'asc'}}">Start time</a></th>
+                    <th scope="col"><a th:text="#{ui.session.time.end}" th:href="@{'~/sessions/page/' + ${currentPage} + '?sortBy=end&sortDir=' + ${sortDir.equalsIgnoreCase('asc') ? 'desc' : 'asc'}}">End time</a></th>
+                    <th scope="col"><a th:text="#{ui.session.movie}" th:href="@{'~/sessions/page/' + ${currentPage} + '?sortBy=movie&sortDir=' + ${sortDir.equalsIgnoreCase('asc') ? 'desc' : 'asc'}}">Movie</a></th>
+                    <th scope="col" th:text="#{ui.movie.actions}">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="movieSession: ${sessions}">
+                    <th scope="row" th:text="${movieSession.id}">id</th>
+                    <td th:text="${movieSession.date}">date</td>
+                    <td th:text="${movieSession.start}">start time</td>
+                    <td th:text="${movieSession.end}">end time</td>
+                    <td th:text="${movieSession.movie.title}">movie</td>
+                    <td>
+
+                        <form th:id="${'delete_form' + movieSession.id}" th:action="@{'~/sessions/' + ${movieSession.id}}" th:method="delete"></form>
+                        <a th:href="@{'~/sessions/' + ${movieSession.id}}" class="btn btn-success"><i class="fas fa-edit"></i></a>
+                        <button th:onclick="|submitDeleteForm(${movieSession.id})|" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+
+
+                        <!--<button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>-->
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <nav class="row d-flex justify-content-center flex-nowrap mt-5" aria-label="pagination" th:if="${totalPages > 1}">
+        <ul class="pagination">
+            <li class="page-item">
+                <a th:class="${currentPage > 1} ? 'page-link' : 'btn disabled page-link'"
+                   th:href="@{'~/sessions/page/' + ${currentPage - 1} + '?sortBy=' + ${sortBy} + '&sortDir=' + ${sortDir}}"
+                   th:text="#{ui.page.previous}">Previous</a>
+            </li>
+            <li th:each="i: ${#numbers.sequence(1, totalPages)}" class="page-item">
+                <a th:class="${currentPage != i} ? 'page-link' : 'btn disabled page-link'"
+                   th:href="@{'~/sessions/page/' + ${i} + '?sortBy=' + ${sortBy} + '&sortDir=' + ${sortDir}}"
+                   th:text="${i}">1</a>
+            </li>
+            <li class="page-item">
+                <a th:class="${currentPage < totalPages} ? 'page-link' : 'btn disabled page-link'"
+                   th:href="@{'~/sessions/page/' + ${currentPage + 1} + '?sortBy=' + ${sortBy} + '&sortDir=' + ${sortDir}}"
+                   th:text="#{ui.page.next}">Next</a>
+            </li>
+        </ul>
+    </nav>
+
+</div>
+
+<script>
+
+    function submitDeleteForm(id) {
+        document.getElementById("delete_form" + id).submit();
+    }
+
+</script>
+
+<div th:replace="fragments/default-page :: footer"></div>
+</body>
+</html>

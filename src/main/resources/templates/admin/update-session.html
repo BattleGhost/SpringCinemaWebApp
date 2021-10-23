@@ -18,12 +18,12 @@
                         <div class="col-12 col-md-9 col-lg-7 col-xl-6">
                             <div class="card" style="border-radius: 15px;">
                                 <div class="card-body p-5">
-                                    <h2 class="text-uppercase text-center mb-5" th:text="#{message.session.add}">Add session</h2>
+                                    <h2 class="text-uppercase text-center mb-5" th:text="#{message.session.update}">Update session</h2>
                                     <div class="alert alert-success alert-dismissible" role="alert" th:if="${param.keySet().contains('success')}">
                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
                                         <div th:text="#{message.session.add.success}"></div>
                                     </div>
-                                    <form id="form" name="form" th:action="@{/sessions/add}" th:method="POST" th:object="${movieSession}" >
+                                    <form id="form" name="form" th:action="@{'/sessions/' + ${id}}" th:method="POST" th:object="${movieSession}">
 
                                         <div class="form-outline mb-4">
                                             <input type="date" class="form-control form-control-lg" th:field="*{date}" name="date" id="date" required>
@@ -59,8 +59,6 @@
                                                 </select>
                                             </div>
                                         </div>
-
-
 
                                         <div class="d-flex justify-content-center">
                                             <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body register-btn" th:text="#{message.session.add.confirm}"></button>

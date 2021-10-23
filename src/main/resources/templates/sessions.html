@@ -13,10 +13,10 @@
 <div class="schedule-block mt-5">
     <div class="schedule content-block">
         <div class="container">
+            <a th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}" th:href="@{~/sessions}" class="btn btn-primary mb-3" th:text="#{ui.mode.admin}"></a>
             <h2 data-aos="zoom-in-up" class="aos-init aos-animate" th:text="#{ui.schedule}">Schedule</h2>
 
             <div class="timetable">
-
                 <!-- Schedule Top Navigation -->
                 <nav class="nav nav-tabs" id="days">
                     <a id="day1" href="#tab1" class="nav-link active">Mon</a>
@@ -65,15 +65,16 @@
 <script th:inline="javascript">
     let today = new Date();
     let array = [];
-    array.push(/*[[#{ui.sunday}]]*/ '', /*[[#{ui.monday}]]*/ '', /*[[#{ui.tuesday}]]*/ '', /*[[#{ui.wednesday}]]*/ '',
-        /*[[#{ui.thursday}]]*/ '', /*[[#{ui.friday}]]*/ '', /*[[#{ui.saturday}]]*/ '');
+    array.push(/*[[#{ui.sunday}]]*/ 'Sunday', /*[[#{ui.monday}]]*/ 'Monday', /*[[#{ui.tuesday}]]*/ 'Tuesday',
+        /*[[#{ui.wednesday}]]*/ 'Wednesday', /*[[#{ui.thursday}]]*/ 'Thursday', /*[[#{ui.friday}]]*/ 'Friday',
+        /*[[#{ui.saturday}]]*/ 'Saturday');
 
     for (let i = 0; i < 7; i++) {
         let date = new Date();
         date.setDate(today.getDate() + i);
         let day_cell = $('#day' + (i+1));
         let day = array[date.getDay()];
-        day_cell.html(day + '<br/>' + date.getDate() + '.' + date.getMonth());
+        day_cell.html(day + '<br/>' + date.getDate() + '.' + (date.getMonth() + 1));
     }
 </script>
 <script th:src="@{~/scripts/sessions.js}"></script>

@@ -35,7 +35,7 @@ public class MovieSession {
     @ManyToOne
     private Movie movie;
 
-    @OneToMany(mappedBy = "session", orphanRemoval = true)
+    @OneToMany(mappedBy = "session")
     private List<Ticket> tickets;
 
     public LocalTime getEnd() {
