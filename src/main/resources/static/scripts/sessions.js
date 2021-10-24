@@ -15,3 +15,10 @@ $(document).ready(function(){
         return false;
     });
 });
+
+function buyTicket(session) {
+    for (let i = 0; i < 12; i++) {
+        session = btoa(session);
+    }
+    location.href = "/tickets?session="+session;
+}

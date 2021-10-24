@@ -7,6 +7,7 @@ import com.example.springcinemawebapp.model.Movie;
 import com.example.springcinemawebapp.model.MovieSession;
 import com.example.springcinemawebapp.repository.MovieSessionRepository;
 import com.example.springcinemawebapp.utils.DateTimeUtils;
+import com.example.springcinemawebapp.utils.EncryptionUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
@@ -20,8 +21,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-import static com.example.springcinemawebapp.properties.TechnicalConstants.MOVIE_SESSIONS_END_TIME;
-import static com.example.springcinemawebapp.properties.TechnicalConstants.MOVIE_SESSIONS_START_TIME;
+import static com.example.springcinemawebapp.properties.TechnicalConstants.*;
 import static com.example.springcinemawebapp.properties.TechnicalTextConstants.TIME_OVERLAPPING_MSG;
 import static com.example.springcinemawebapp.properties.TechnicalTextConstants.WRONG_MOVIE_SESSION_TIME_MSG;
 
@@ -49,6 +49,11 @@ public class MovieSessionService {
 
     public MovieSession getById(long id) {
         return repository.getById(id);
+    }
+
+    public MovieSession getById(String encryptedId) {
+        long id = EncryptionUtils.decryptId(encryptedId, BASE64_ENCRYPT_ROUNDS);
+        return getById(id);
     }
 
     public List<MovieSession> getByDate(LocalDate date) {

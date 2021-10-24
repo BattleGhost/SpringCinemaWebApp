@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -119,6 +120,8 @@ public class MovieSessionController {
                             .collect(Collectors.toList())
             );
         }
+        LocalTime currentTime = LocalTime.now();
+        model.addAttribute("currentTime", currentTime);
 
         return "sessions";
     }

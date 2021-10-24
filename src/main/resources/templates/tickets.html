@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <link th:replace="fragments/default-page :: bootstrap">
+    <link th:replace="fragments/default-page :: fontawesome">
+    <link rel="stylesheet" th:href="@{~/css/external/jquery.seat-charts.css}">
+    <link rel="stylesheet" th:href="@{~/css/tickets.css}">
+    <title>Buy tickets</title>
+</head>
+    <body>
+        <div th:replace="fragments/default-page :: header"></div>
+
+        <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins mt-4 mb-4">
+            <div class="wrapper wrapper--w680">
+                <section class="vh-100">
+                    <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+                        <div class="container-fluid h-100">
+                            <div class="row d-flex justify-content-center align-items-center h-100">
+                                <div class="col-12 col-md-12 col-lg-7 col-xl-6">
+                                    <div class="card" style="border-radius: 15px;">
+                                        <div class="card-body p-5">
+                                            <h2 class="text-uppercase text-center mb-5" th:text="#{message.tickets.buy}">Buy tickets</h2>
+
+                                            <form id="form" name="form" th:method="POST" onsubmit="return customSubmit();">
+                                                <div class="demo row">
+                                                    <div class="col-md-6" id="seat-map">
+                                                        <div class="front" th:text="#{ui.screen}">SCREEN</div>
+                                                    </div>
+
+                                                        <div class="booking-details col-md-6">
+                                                            <p><th:block th:text="#{ui.movie} + ':'">Movie:</th:block> <span th:text="${movieSession.movie.title}"> Title</span></p>
+                                                            <p><th:block th:text="#{ui.time} + ':'">Time:</th:block> <span th:text="${movieSession.date} + ', ' + ${movieSession.start}"> Datetime</span></p>
+                                                            <p th:text="#{ui.seats} + ':'">Seat: </p>
+                                                            <ul id="selected-seats"></ul>
+                                                            <p><th:block th:text="#{ui.tickets} + ':'">Tickets:</th:block> <span id="counter">0</span></p>
+                                                            <p><th:block th:text="#{ui.total} + ':'">Total:</th:block> <b><th:block th:text="#{ui.unit.currency.symbol}"></th:block><span id="total">0</span></b></p>
+
+                                                            <button id="sButton" type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body register-btn" th:text="#{message.buy}">BUY</button>
+
+                                                            <div id="legend"></div>
+                                                        </div>
+                                                        <div style="clear:both"></div>
+
+                                                </div>
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div th:replace="fragments/default-page :: footer"></div>
+        <script th:inline="javascript">
+            const option = /*[[#{ui.option}]]*/ 'Option';
+            const sold = /*[[#{ui.sold}]]*/ 'Sold';
+            const row = /*[[#{ui.row}]]*/ 'Row';
+            const seat = /*[[#{ui.seat}]]*/ 'Seat';
+            const price = /*[[${ticketPrice}]]*/ 10;
+            const rowsNumber = /*[[${rowsNumber}]]*/ 8;
+            const seatsNumber = /*[[${seatsNumber}]]*/ 10;
+            let map = [];
+            for (let i = 0; i < rowsNumber; i++) {
+                let tmp = "";
+                for (let j = 0; j < seatsNumber; j++) {
+                    tmp += "a";
+                }
+                map.push(tmp);
+            }
+            let soldItems = [];
+            /*<![CDATA[*/
+
+                /*[# th:each="ticket : ${purchasedTickets}"]*/
+
+                    soldItems.push(/*[[${ticket.rowNumber + '_' + ticket.seatNumber}]]*/)
+
+                /*[/]*/
+
+            /*]]>*/
+        </script>
+        <script th:src="@{~/scripts/tickets.js}"></script>
+        <script th:src="@{~/scripts/external/jquery.seat-charts.min.js}"></script>
+    </body>
+</html>

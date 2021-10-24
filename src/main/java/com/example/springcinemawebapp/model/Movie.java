@@ -6,7 +6,8 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.Duration;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity

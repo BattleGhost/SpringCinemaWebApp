@@ -1,16 +1,14 @@
 package com.example.springcinemawebapp.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -35,7 +33,7 @@ public class MovieSession {
     @ManyToOne
     private Movie movie;
 
-    @OneToMany(mappedBy = "session")
+    @OneToMany(mappedBy = "session", cascade = CascadeType.ALL)
     private List<Ticket> tickets;
 
     public LocalTime getEnd() {

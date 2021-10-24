@@ -25,7 +25,7 @@
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
             <a class="nav-link" th:href="@{/sessions}"> <div th:text="${#authorization.expression('isAuthenticated()')} ?
-             #{ui.tickets} : #{ui.movies}">Movies</div><span class="sr-only">(current)</span></a>
+             #{ui.tickets.buy} : #{ui.movies}">Movies</div><span class="sr-only">(current)</span></a>
 
           </li>
           <li class="nav-item dropdown">
