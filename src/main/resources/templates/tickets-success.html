@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <link th:replace="fragments/default-page :: bootstrap">
+    <link th:replace="fragments/default-page :: fontawesome">
+    <link rel="stylesheet" th:href="@{~/css/tickets-success.css}">
+    <title>Buy tickets success</title>
+</head>
+    <body>
+        <div th:replace="fragments/default-page :: header"></div>
+
+            <div class="card" style="margin-top: 10em;">
+                <div style="border-radius:200px; height:200px; width:200px; background: #F8FAF5; margin:0 auto;">
+                    <i class="checkmark">✓</i>
+                </div>
+                <h1 th:text="#{message.success}">Success</h1>
+                <p><th:block th:text="#{message.bought.success}"></th:block><br/><a th:href="@{~/cabinet}" th:text="#{message.redirect.cabinet}">Cabinet</a></p>
+            </div>
+
+        <div th:replace="fragments/default-page :: footer"></div>
+    </body>
+</html>

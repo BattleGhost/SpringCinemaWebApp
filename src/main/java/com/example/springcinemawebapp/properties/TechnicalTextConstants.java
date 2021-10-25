@@ -3,6 +3,7 @@ package com.example.springcinemawebapp.properties;
 public interface TechnicalTextConstants {
     String USER_NOT_FOUND_MSG = "User not found";
     String EMAIL_IS_ALREADY_TAKEN_MSG = "Email is already taken";
+    String NOT_ENOUGH_MONEY_MSG = "Email is already taken";
     String TIME_OVERLAPPING_MSG = "Time is overlapping";
     String NO_SUCH_FIELD_MSG = "No such field: ";
     String WRONG_MOVIE_SESSION_TIME_MSG = "Wrong movie session time";

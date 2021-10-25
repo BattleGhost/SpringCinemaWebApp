@@ -7,7 +7,6 @@ import com.example.springcinemawebapp.model.Movie;
 import com.example.springcinemawebapp.model.MovieSession;
 import com.example.springcinemawebapp.repository.MovieSessionRepository;
 import com.example.springcinemawebapp.utils.DateTimeUtils;
-import com.example.springcinemawebapp.utils.EncryptionUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
@@ -49,11 +48,6 @@ public class MovieSessionService {
 
     public MovieSession getById(long id) {
         return repository.getById(id);
-    }
-
-    public MovieSession getById(String encryptedId) {
-        long id = EncryptionUtils.decryptId(encryptedId, BASE64_ENCRYPT_ROUNDS);
-        return getById(id);
     }
 
     public List<MovieSession> getByDate(LocalDate date) {

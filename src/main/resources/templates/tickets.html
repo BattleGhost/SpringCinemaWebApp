@@ -35,8 +35,8 @@
                                                             <ul id="selected-seats"></ul>
                                                             <p><th:block th:text="#{ui.tickets} + ':'">Tickets:</th:block> <span id="counter">0</span></p>
                                                             <p><th:block th:text="#{ui.total} + ':'">Total:</th:block> <b><th:block th:text="#{ui.unit.currency.symbol}"></th:block><span id="total">0</span></b></p>
-
-                                                            <button id="sButton" type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body register-btn" th:text="#{message.buy}">BUY</button>
+                                                            <a th:if="${#authorization.expression('!isAuthenticated()')}" th:styleappend="'pointer-events: none; cursor: default; background-color: grey; border-color: black;'" class="btn btn-primary btn-book" th:text="#{message.require.register}"></a>
+                                                            <button th:unless="${#authorization.expression('!isAuthenticated()')}" id="sButton" type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body register-btn" th:text="#{message.buy}">BUY</button>
 
                                                             <div id="legend"></div>
                                                         </div>

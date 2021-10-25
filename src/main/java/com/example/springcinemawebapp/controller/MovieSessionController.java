@@ -121,6 +121,7 @@ public class MovieSessionController {
             );
         }
         LocalTime currentTime = LocalTime.now();
+        model.addAttribute("currentDay", today);
         model.addAttribute("currentTime", currentTime);
 
         return "sessions";

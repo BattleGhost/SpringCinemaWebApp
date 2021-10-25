@@ -1,12 +1,15 @@
 package com.example.springcinemawebapp.controller;
 
 import com.example.springcinemawebapp.dto.TicketDTO;
+import com.example.springcinemawebapp.exception.NotEnoughMoneyException;
+import com.example.springcinemawebapp.facade.TicketFacade;
 import com.example.springcinemawebapp.model.MovieSession;
 import com.example.springcinemawebapp.model.Ticket;
-import com.example.springcinemawebapp.service.MovieSessionService;
-import com.example.springcinemawebapp.service.TicketService;
 import com.example.springcinemawebapp.utils.ValidList;
 import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,8 +25,7 @@ import static com.example.springcinemawebapp.properties.TechnicalConstants.*;
 @RequestMapping("/tickets")
 public class TicketController {
 
-    private final TicketService ticketService;
-    private final MovieSessionService movieSessionService;
+    private final TicketFacade ticketFacade;
 
     @GetMapping
     public String getTicketsForSession(@RequestParam(value = "session", required = false) String session, Model model) {
@@ -33,8 +35,8 @@ public class TicketController {
         List<Ticket> purchasedTickets;
         MovieSession movieSession;
         try {
-            purchasedTickets = ticketService.getAllTicketsOfSession(session);
-            movieSession = movieSessionService.getById(session);
+            purchasedTickets = ticketFacade.getAllTicketsOfSession(session);
+            movieSession = ticketFacade.getSessionById(session);
         } catch (IllegalArgumentException e) {
             return "redirect:sessions";
         }
@@ -48,10 +50,28 @@ public class TicketController {
     }
 
     @PostMapping
-    public String buyTickets(@RequestParam(value = "session") String session,
+    public String buyTickets(Authentication authentication, @RequestParam(value = "session") String session,
                              @RequestBody @Valid ValidList<TicketDTO> tickets, BindingResult bindingResult) {
-
-        return "redirect:tickets/success?session="+session;
+        if (authentication == null || bindingResult.hasErrors()) {
+            return "redirect:tickets/failure?validation";
+        }
+        try {
+            ticketFacade.buyTickets(tickets, session, ((User) authentication.getPrincipal()).getUsername());
+        } catch (NotEnoughMoneyException e) {
+            return "redirect:tickets/failure?money";
+        } catch (Exception e) {
+            return "redirect:tickets/failure?unknown";
+        }
+        return "redirect:tickets/success";
     }
 
+    @GetMapping("/success")
+    public String getSuccessPage() {
+        return "tickets-success";
+    }
+
+    @GetMapping("/failure")
+    public String getFailurePage() {
+        return "tickets-failure";
+    }
 }

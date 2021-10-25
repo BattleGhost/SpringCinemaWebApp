@@ -31,9 +31,18 @@ public class User {
     private String password;
 
     @Column(nullable = false)
+    private Long balance;
+
+    @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
     @OneToMany(mappedBy = "buyer", fetch = FetchType.EAGER)
     private List<Ticket> tickets = new ArrayList<>();
+
+    @PrePersist
+    void preInsert() {
+        if (this.balance == null)
+            this.balance = 0L;
+    }
 }

@@ -44,7 +44,7 @@
                                             <div class="timetable-item-main">
                                                 <div class="timetable-item-time" th:text="${sess.start} + ' - ' + ${sess.end}"></div>
                                                 <div class="timetable-item-name"  th:text="${sess.movie.title}"></div>
-                                                <a th:styleappend="${currentTime.isAfter(sess.start) ? 'pointer-events: none; cursor: default; background-color: grey; border-color: black;' : ''}" th:onclick="|buyTicket(${sess.id})|" class="btn btn-primary btn-book" th:text="#{ui.tickets.buy}"></a>
+                                                <a th:styleappend="${(currentDay.isEqual(sess.date) and currentTime.isAfter(sess.start)) ? 'pointer-events: none; cursor: default; background-color: grey; border-color: black;' : ''}" th:onclick="|buyTicket(${sess.id})|" class="btn btn-primary btn-book" th:text="#{ui.tickets.buy}"></a>
                                             </div>
                                         </div>
                                     </div>
