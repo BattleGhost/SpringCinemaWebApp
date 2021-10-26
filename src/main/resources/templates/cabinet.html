@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <link th:replace="fragments/default-page :: bootstrap">
+    <link th:replace="fragments/default-page :: fontawesome">
+    <title>Cabinet</title>
+</head>
+<body>
+<div th:replace="fragments/default-page :: header"></div>
+
+<div class="container mt-5">
+    <div class="main-body">
+        <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8kzxIZVQVxVb7Sw1k3VQJ_eIfmE598uZXBybDOi-da2okFNYLG6B8_bP_z5zX-l_QwoI&usqp=CAU" alt="avatar" class="rounded-circle" width="150">
+                            <div class="mt-3">
+                                <h4 th:text="${user.firstName + ' ' + user.lastName}"></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0" th:text="#{ui.full.name}">Full Name</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary" th:text="${user.firstName + ' ' + user.lastName}">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0" th:text="#{ui.email}">Email</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary" th:text="${user.email}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div  class="row gutters-sm">
+                    <div th:each="ticket : ${user.tickets}" class="col-sm-6 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2" th:text="#{ui.ticket}">Ticket</i></h6>
+                                <h6 class="d-flex align-items-center mb-3"><small th:text="#{ui.movie}">Movie</small>&nbsp;<th:block th:text="${ticket.session.movie.title}"></th:block></h6>
+                                <h6 class="d-flex align-items-center mb-3"><small th:text="#{ui.time}">Time</small>&nbsp;<th:block th:text="${ticket.session.start + ' - ' + ticket.session.end}"></th:block></h6>
+                                <h6 class="d-flex align-items-center mb-3"><small th:text="#{ui.row}">Row</small>&nbsp;<th:block th:text="${ticket.rowNumber}"></th:block></h6>
+                                <h6 class="d-flex align-items-center mb-3"><small th:text="#{ui.seat}">Seat</small>&nbsp;<th:block th:text="${ticket.seatNumber}"></th:block></h6>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div th:replace="fragments/default-page :: footer"></div>
+</body>
+</html>
