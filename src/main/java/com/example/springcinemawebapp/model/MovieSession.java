@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -38,5 +39,18 @@ public class MovieSession {
 
     public LocalTime getEnd() {
         return start.plus(movie.getDuration());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MovieSession session = (MovieSession) o;
+        return Objects.equals(date, session.date) && Objects.equals(start, session.start) && Objects.equals(movie, session.movie);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(date, start, movie);
     }
 }
